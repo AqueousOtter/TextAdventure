@@ -23,7 +23,7 @@ public class DatabaseAccess {
     public ArrayList<Monster> getMonsterList(int category) {
         connection = null;
         try{
-            connection = DriverManager.getConnection("jdbc:sqlite:UntitledAdventure.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:TextAdventure/GGAdventure/src/dev/dustinb/UntitledAdventure.db");
             String sql = "SELECT * FROM monsters";
 
             Statement statement = connection.createStatement();
