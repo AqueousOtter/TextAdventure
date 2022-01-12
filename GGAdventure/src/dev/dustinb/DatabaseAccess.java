@@ -19,9 +19,8 @@ public class DatabaseAccess {
     }
 
     //grab info from database and populate Arraylist
-
+//monsters
     public ArrayList<Monster> getMonsterList(int category) {
-        connection = null;
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:TextAdventure/GGAdventure/src/dev/dustinb/UntitledAdventure.db");
             String sql = "SELECT * FROM monsters";
@@ -40,6 +39,26 @@ public class DatabaseAccess {
         }
 
         return monsterList;
+    }
+
+    //items
+    public ArrayList<Item> getItemList(){
+        try{
+            connection = DriverManager.getConnection("jdbc:sqlite:TextAdventure/GGAdventure/src/dev/dustinb/UntitledAdventure.db");
+            String sql = "SELECT * FROM items";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            //loop through entries
+            while (rs.next()){
+                Item newItem = new Item(rs.getString("name"), rs.getInt("sell"), rs.getInt("statBoost"),
+                        rs.getBoolean("isWeapon"), rs.getBoolean("isHealing"));
+                itemList.add(newItem);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return itemList;
     }
 
 

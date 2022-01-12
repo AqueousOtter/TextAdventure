@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BattleMaker {
+    Random random = new Random();
 
     public void BattleLoop(Monster monster, Player player){
         //constants
@@ -22,7 +23,7 @@ public class BattleMaker {
         boolean escape = false;
         boolean battleOver = false;
         boolean playerAlive = true;
-        Random random = new Random();
+
 
         //begin console/input loop for battle //ends when monsterDead set to true(0hp) or escape is true
         System.out.println("*********************************************");
@@ -51,6 +52,13 @@ public class BattleMaker {
                         playerCharge++;
                     }
                     break;
+                case(3):
+                    if(player.useBag()){
+                        break;
+                    }
+                    else{
+                        continue;
+                    }
                 case(4):
                     int escapeChance = random.nextInt(7);
                     if((escapeChance%2) > 0){
@@ -91,21 +99,21 @@ public class BattleMaker {
         }while(!battleOver);
         if(playerAlive && !escape){
             battleRewards(monster, player);
-            System.out.println(player.getInventory().size());
         }
+
     }
 
     //delivers exp, gold and items to player
     public void battleRewards(Monster monster, Player player){
-        Item monsterDrop = monster.itemDrop();
+
         int currentExp = player.getExp();
         int currentGold = player.getGold();
         player.setExp(currentExp + monster.getExperience());
         player.setGold(currentGold + monster.getGold());
         //drop item
-        if(monsterDrop != null){
-            System.out.println(monster.getName() + " dropped " + monsterDrop.getName() + "...");
-            player.addToInventory(monsterDrop);
+        int dropChance = random.nextInt(3);
+        if (dropChance <= 1) {
+            player.addToInventory(monster.itemDrop());
         }
         System.out.println(player.getName() + " gained " + monster.getExperience() + "xp and " + monster.getGold() + "g");
     }

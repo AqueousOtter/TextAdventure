@@ -46,6 +46,17 @@ public class Item {
 
     @Override
     public String toString() {
-        return (name + " | Power: " + statBoost + " | Value: " + sell);
+        String property;
+        if(isHealing){
+            property = "Restores Health";
+        }
+        else if (isWeapon){
+            property = "Weapon";
+        }
+        else{
+            property = "Trash";
+        }
+
+        return (name + " | Power: " + statBoost + " | Value: " + sell + " | " + property);
     }
 }

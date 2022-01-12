@@ -63,12 +63,9 @@ public class Monster implements MonsterInterface {
 
     @Override
     public Item itemDrop() {
-        int dropChance = random.nextInt(10);
-        if (dropChance <= 5) {
+
+            System.out.println(name + " dropped " + dropItem);
             return itemGen.itemDropper(dropItem); //returns generated item object
-        } else {
-            System.out.println("Nothing was found...");
-            return null;
-        }
+
     }
 }

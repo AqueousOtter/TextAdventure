@@ -18,7 +18,6 @@ public class Main {
         Player player = new Player(name);
         MonsterGen monsterGenerator = new MonsterGen();
         BattleMaker battleMaker = new BattleMaker();
-        DatabaseAccess databaseAccess = new DatabaseAccess();
         System.out.println("testing database");
 
 
@@ -27,6 +26,7 @@ public class Main {
         }
         System.out.println(player.getInventory().size());
         System.out.println(player.getInventory());
+        player.viewInventory();
         System.out.println("End");
         player.viewInventory();
         System.out.println("end of program");
