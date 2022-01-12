@@ -16,6 +16,7 @@ public class BattleMaker {
         final String PLAYERWEAPON = player.getWeapon().getName();
 
         Scanner inputScanner = new Scanner(System.in);
+        int monsterHP = monster.getHp();
         int playerChoice;
         int playerCharge = 0;
         boolean escape = false;
@@ -29,7 +30,7 @@ public class BattleMaker {
         do {
 
             System.out.println("-------------------------------------------");
-            System.out.println("\t\t" + monster.getName() + " HP: "+ monster.getHp() + " | " + player.getName() + " HP: " + player.getHp());
+            System.out.println("\t\t" + monster.getName() + " HP: "+ monsterHP + " | " + player.getName() + " HP: " + player.getHp());
             System.out.println("-----------\tSelect an action\t-----------");
             System.out.println("[1] Attack\t[2] Special Attack\n[3] Bag\t[4] Escape");
             playerChoice = inputScanner.nextInt();
@@ -37,14 +38,14 @@ public class BattleMaker {
                 case(1):
                     System.out.println(player.getName() + " strikes " + monster.getName() + " with " + PLAYERWEAPON + " causing " +
                             PLAYERATTACK + " damage...");
-                    monster.setHp(monster.getHp() - PLAYERATTACK);
+                    monsterHP -= PLAYERATTACK;
                     break;
                 case(2):
                     if(playerCharge == 1){
                         playerCharge = 0;
                         System.out.println(player.getName() + " goes berserk causing " + SPECIALATTACK +
                                 " damage to "+ monster.getName());
-                        monster.setHp(monster.getHp() - SPECIALATTACK);
+                        monsterHP -= SPECIALATTACK;
                     }else{
                         System.out.println("A rage starts to form inside of " + player.getName());
                         playerCharge++;
@@ -67,7 +68,7 @@ public class BattleMaker {
             }
 
             //monster turn/end of battle logic
-            if (monster.getHp() > 0 && !escape) {
+            if (monsterHP > 0 && !escape) {
                 //Monster attack -- check for missed attack
                 if(monster.attack() != 0){
 
@@ -82,7 +83,7 @@ public class BattleMaker {
                 else {
                     System.out.println(monster.getName() + "'s attack missed!\n");
                 }
-            }else if(monster.getHp() <= 0){
+            }else if(monsterHP <= 0){
                 System.out.println(player.getName() + " has defeated " + monster.getName() + "...\n");
                 battleOver = true;
             }

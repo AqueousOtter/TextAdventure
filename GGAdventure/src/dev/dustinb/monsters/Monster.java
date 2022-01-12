@@ -44,10 +44,6 @@ public class Monster implements MonsterInterface {
         return gold;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
     public int getAttackDmg() {
         return attackDmg;
     }

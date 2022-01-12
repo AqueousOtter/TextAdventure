@@ -5,6 +5,7 @@ import dev.dustinb.battles.BattleMaker;
 import dev.dustinb.monsters.MonsterGen;
 import dev.dustinb.player.Player;
 
+
 import java.util.Scanner;
 
 public class Main {
@@ -17,6 +18,9 @@ public class Main {
         Player player = new Player(name);
         MonsterGen monsterGenerator = new MonsterGen();
         BattleMaker battleMaker = new BattleMaker();
+        DatabaseAccess databaseAccess = new DatabaseAccess();
+        System.out.println("testing database");
+
 
         for(int i = 0; i < 4; i++){
             battleMaker.BattleLoop(monsterGenerator.monsterMaker(1), player);
