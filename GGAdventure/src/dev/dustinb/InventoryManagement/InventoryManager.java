@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class InventoryManager {
 
 
-    private ArrayList<Item> inventory;
+    private final ArrayList<Item> inventory;
     Player player;
     Scanner input = new Scanner(System.in);
 

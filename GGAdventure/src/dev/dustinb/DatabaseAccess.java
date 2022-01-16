@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class DatabaseAccess {
 
-    private ArrayList<Item> itemList;
-    private ArrayList<Monster> monsterList;
+    private final ArrayList<Item> itemList;
+    private final ArrayList<Monster> monsterList;
     private Connection connection;
 
     public DatabaseAccess() {

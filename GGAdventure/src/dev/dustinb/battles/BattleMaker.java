@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class BattleMaker {
     Random random = new Random();
-    InventoryManager inventory;
 
     public void BattleLoop(Monster monster, Player player){
         //constants
@@ -32,7 +31,6 @@ public class BattleMaker {
         System.out.println("*********************************************");
         System.out.println(player.getName() + " has encountered a " + monster.getName() + ". A fight begins...");
         do {
-
             System.out.println("-------------------------------------------");
             System.out.println("\t\t" + monster.getName() + " HP: "+ monsterHP + " | " + player.getName() + " HP: " + player.getHp());
             System.out.println("-----------\tSelect an action\t-----------");
@@ -92,10 +90,10 @@ public class BattleMaker {
                     }
                 }
                 else {
-                    System.out.println(monster.getName() + "'s attack missed!\n");
+                    System.out.println(monster.getName() + "'s attack missed!");
                 }
             }else if(monsterHP <= 0){
-                System.out.println(player.getName() + " has defeated " + monster.getName() + "...\n");
+                System.out.println(player.getName() + " has defeated " + monster.getName() + "...");
                 battleOver = true;
             }
 
@@ -113,6 +111,7 @@ public class BattleMaker {
         int currentGold = player.getGold();
         player.setExp(currentExp + monster.getExperience());
         player.setGold(currentGold + monster.getGold());
+        player.playerLevelProgress(currentExp);
         //drop item
         int dropChance = random.nextInt(3);
         if (dropChance <= 1) {

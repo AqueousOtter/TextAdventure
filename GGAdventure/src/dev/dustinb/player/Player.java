@@ -1,34 +1,36 @@
 package dev.dustinb.player;
 
-import dev.dustinb.InventoryManagement.InventoryManager;
+
 import dev.dustinb.items.Item;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
 /*
     * TODO
-    *  serialize player
+    *
 
  */
 
 public class Player implements Serializable {
 
+    final int BASEXP = 25;
     ArrayList<Item> inventory;
     private int hp;
+    private int level;
     private int exp;
+    private int nextLevel;
     private int gold;
-    private int attackDmg;
+    private final int attackDmg;
     private Item weapon;
     private String name;
 
 
     public Player(String name) {
         this.hp = 20;
+        this.level = 1;
         this.exp = 0;
+        this.nextLevel = (int) Math.round( BASEXP * level * .3);;;
         this.gold = 10;
         this.attackDmg = 6;
         this.weapon = new Item("Dull Sword", 3, 2, true, false);
@@ -46,6 +48,26 @@ public class Player implements Serializable {
                 break;
             }
         }
+    }
+    //level up system
+    public void playerLevelProgress(int expGained){
+        exp += expGained;
+        if(exp == nextLevel){
+            level++;
+        }
+    }
+
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getNextLevel() {
+        return nextLevel;
+    }
+
+    public void setNextLevel(int nextLevel) {
+        this.nextLevel = nextLevel;
     }
 
     public int getAttackDmg() {

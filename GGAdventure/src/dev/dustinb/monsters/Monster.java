@@ -8,15 +8,15 @@ import java.util.Random;
 //class for automatic gen
 public class Monster implements MonsterInterface {
 
-    private String name;
-    private int hp;
-    private int attackDmg;
-    private int experience;
-    private String weapon;
-    private int gold;
-    private String dropItem;
-    private Random random = new Random();
-    private ItemGen itemGen = new ItemGen();
+    private final String name;
+    private final int hp;
+    private final int attackDmg;
+    private final int experience;
+    private final String weapon;
+    private final int gold;
+    private final String dropItem;
+    private final Random random = new Random();
+    private final ItemGen itemGen = new ItemGen();
 
     public Monster(String name, int hp, int attack, int experience, String weapon, int gold, String dropItem) {
         this.name = name;

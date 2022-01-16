@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class MonsterGen {
 
-    private Random random = new Random();
-    private DatabaseAccess databaseAccess = new DatabaseAccess();
+    private final Random random = new Random();
+    private final DatabaseAccess databaseAccess = new DatabaseAccess();
 
     public Monster monsterMaker(int level){
         Monster badGuy;

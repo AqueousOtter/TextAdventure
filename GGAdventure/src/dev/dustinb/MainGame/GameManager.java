@@ -8,7 +8,6 @@ import dev.dustinb.player.PlayerSave;
 
 public class GameManager {
     Player player;
-    BattleMaker battleMaker;
 
     public GameManager(Player player) {
         this.player = player;
@@ -17,8 +16,6 @@ public class GameManager {
         MonsterGen monsterGenerator = new MonsterGen();
         BattleMaker battleMaker = new BattleMaker();
         System.out.println("testing database");
-
-
         for(int i = 0; i < 4; i++){
             battleMaker.BattleLoop(monsterGenerator.monsterMaker(1), player);
         }

@@ -3,11 +3,11 @@ package dev.dustinb.items;
 import java.io.Serializable;
 
 public class Item implements Serializable {
-    private String name;
-    private int sell;
-    private int statBoost; //handles either healing or attack damage increases
-    private boolean isWeapon;
-    private boolean isHealing;
+    private final String name;
+    private final int sell;
+    private final int statBoost; //handles either healing or attack damage increases
+    private final boolean isWeapon;
+    private final boolean isHealing;
 
 
     public Item(){

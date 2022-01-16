@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ItemGen {
 
-    private DatabaseAccess databaseAccess = new DatabaseAccess();
+    private final DatabaseAccess databaseAccess = new DatabaseAccess();
     final ArrayList<Item> itemList = databaseAccess.getItemList();
 
 
