@@ -1,6 +1,8 @@
 package dev.dustinb.items;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String name;
     private int sell;
     private int statBoost; //handles either healing or attack damage increases

@@ -1,5 +1,6 @@
 package dev.dustinb.battles;
 
+import dev.dustinb.InventoryManagement.InventoryManager;
 import dev.dustinb.items.Item;
 import dev.dustinb.monsters.Monster;
 import dev.dustinb.player.Player;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 
 public class BattleMaker {
     Random random = new Random();
+    InventoryManager inventory;
 
     public void BattleLoop(Monster monster, Player player){
         //constants
@@ -15,6 +17,7 @@ public class BattleMaker {
         final int SPECIALATTACK = (int) Math.round(player.getAttackDmg() * 1.33);
         final int MONSTERDAMAGE = monster.getAttackDmg();
         final String PLAYERWEAPON = player.getWeapon().getName();
+        final InventoryManager INVENTORY = new InventoryManager(player);
 
         Scanner inputScanner = new Scanner(System.in);
         int monsterHP = monster.getHp();
@@ -53,7 +56,7 @@ public class BattleMaker {
                     }
                     break;
                 case(3):
-                    if(player.useBag()){
+                    if(INVENTORY.useBag()){
                         break;
                     }
                     else{

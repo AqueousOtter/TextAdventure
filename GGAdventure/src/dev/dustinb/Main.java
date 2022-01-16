@@ -1,34 +1,26 @@
 package dev.dustinb;
 
 
+import dev.dustinb.InventoryManagement.InventoryManager;
+import dev.dustinb.Menus.MainMenu;
 import dev.dustinb.battles.BattleMaker;
 import dev.dustinb.monsters.MonsterGen;
 import dev.dustinb.player.Player;
+import dev.dustinb.player.PlayerSave;
 
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner input =  new Scanner(System.in);
-        System.out.println("Enter your name: ");
-        String name = input.nextLine();
-
-        Player player = new Player(name);
-        MonsterGen monsterGenerator = new MonsterGen();
-        BattleMaker battleMaker = new BattleMaker();
-        System.out.println("testing database");
 
 
-        for(int i = 0; i < 4; i++){
-            battleMaker.BattleLoop(monsterGenerator.monsterMaker(1), player);
-        }
-        System.out.println(player.getInventory().size());
-        System.out.println(player.getInventory());
-        player.viewInventory();
-        System.out.println("End");
-        player.viewInventory();
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.showMainMenu();
+        new PlayerSave().loadSave();
+
         System.out.println("end of program");
 
     }
