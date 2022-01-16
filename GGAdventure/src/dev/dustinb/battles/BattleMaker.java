@@ -1,7 +1,6 @@
 package dev.dustinb.battles;
 
 import dev.dustinb.InventoryManagement.InventoryManager;
-import dev.dustinb.items.Item;
 import dev.dustinb.monsters.Monster;
 import dev.dustinb.player.Player;
 import java.util.Random;
@@ -75,14 +74,12 @@ public class BattleMaker {
                     System.out.println("Both parties are confused...");
                     break;
             }
-
             //monster turn/end of battle logic
             if (monsterHP > 0 && !escape) {
                 //Monster attack -- check for missed attack
                 if(monster.attack() != 0){
-
-                    System.out.println("\n" + monster.getName() + " attacks " + player.getName() + " with a " +
-                            monster.getWeapon() + " causing " + MONSTERDAMAGE + " damage to " + player.getName()+ "\n");
+                    System.out.println(monster.getName() + " attacks " + player.getName() + " with a " +
+                            monster.getWeapon() + " causing " + MONSTERDAMAGE + " damage to " + player.getName());
                     player.setHp((player.getHp() - MONSTERDAMAGE));
                     if(player.getHp() <= 0){
                         battleOver = true;
@@ -111,12 +108,12 @@ public class BattleMaker {
         int currentGold = player.getGold();
         player.setExp(currentExp + monster.getExperience());
         player.setGold(currentGold + monster.getGold());
-        player.playerLevelProgress(currentExp);
         //drop item
         int dropChance = random.nextInt(3);
         if (dropChance <= 1) {
             player.addToInventory(monster.itemDrop());
         }
         System.out.println(player.getName() + " gained " + monster.getExperience() + "xp and " + monster.getGold() + "g");
+        player.playerLevelProgress(currentExp);
     }
 }

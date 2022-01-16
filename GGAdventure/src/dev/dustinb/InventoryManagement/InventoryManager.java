@@ -82,7 +82,7 @@ public class InventoryManager {
             bag.add(new Item()); // empty placeholder item to keep arraylist
             Iterator<Item> iterator = inventory.iterator();
             System.out.println("\t\t\t********   BAG   ********");
-            System.out.println("\t\t\t   Health: "+ player.getHp());
+            System.out.println("\t\t\t\t   Health: "+ player.getHp());
             System.out.println("--------------------------------------------------------------");
             while(iterator.hasNext()){
                 Item newItem = iterator.next();
@@ -97,10 +97,10 @@ public class InventoryManager {
             System.out.println("{  press number of item you wish to use, 0 to close  }");
             userInput = input.nextInt();
             if(userInput != 0){
-                player.setHp(player.getHp() + bag.get(userInput-1).getStatBoost());
-                System.out.println("Used " + bag.get(userInput-1).getName() +" HP: " + player.getHp());
+                player.setHp(player.getHp() + bag.get(userInput).getStatBoost());
+                System.out.println("Used " + bag.get(userInput).getName() +" HP: " + player.getHp());
                 usedItem = true;
-                player.removeItem(bag.get(userInput).getName()); // ERROR?
+                player.removeItem(bag.get(userInput).getName());
             }
         }
         else{

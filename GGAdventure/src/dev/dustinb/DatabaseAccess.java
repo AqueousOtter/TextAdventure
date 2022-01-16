@@ -23,10 +23,12 @@ public class DatabaseAccess {
     public ArrayList<Monster> getMonsterList(int category) {
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:TextAdventure/GGAdventure/src/dev/dustinb/UntitledAdventure.db");
-            String sql = "SELECT * FROM monsters";
+            String sql = "SELECT * FROM monsters WHERE category = ?";
 
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(category));
+
+            ResultSet rs = preparedStatement.executeQuery();;
 
             //loop through entries
             while (rs.next()){

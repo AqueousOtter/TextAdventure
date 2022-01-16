@@ -1,16 +1,8 @@
 package dev.dustinb.player;
 
-
 import dev.dustinb.items.Item;
-
 import java.io.Serializable;
 import java.util.*;
-
-/*
-    * TODO
-    *
-
- */
 
 public class Player implements Serializable {
 
@@ -21,22 +13,26 @@ public class Player implements Serializable {
     private int exp;
     private int nextLevel;
     private int gold;
-    private final int attackDmg;
+    private int attackDmg;
     private Item weapon;
     private String name;
+    private int mapLevel;
+    private int baseHP;
 
 
     public Player(String name) {
+        this.baseHP = 20;
         this.hp = 20;
         this.level = 1;
         this.exp = 0;
-        this.nextLevel = (int) Math.round( BASEXP * level * .3);;;
+        this.nextLevel = BASEXP;
         this.gold = 10;
-        this.attackDmg = 6;
+        this.attackDmg = (6);
         this.weapon = new Item("Dull Sword", 3, 2, true, false);
         this.name = name;
         this.inventory = new ArrayList<Item>();
         inventory.add(weapon);
+        this.mapLevel = 1;
     }
 
     //remove used items during gameplay/ inventory screens
@@ -52,23 +48,28 @@ public class Player implements Serializable {
     //level up system
     public void playerLevelProgress(int expGained){
         exp += expGained;
-        if(exp == nextLevel){
+        if(exp >= nextLevel){
+            System.out.println(name + " has Leveled Up!");
             level++;
+            if(level%2 == 0){
+                baseHP += 5;
+            }
+            else {
+                baseHP += 2;
+            }
+            setHp(baseHP);
+            attackDmg++;
+            exp = 0;
+            nextLevel = (int) Math.round( BASEXP * level * .6);
         }
     }
 
-
-    public int getLevel() {
-        return level;
+    @Override
+    public String toString() {
+        return ("\n\t\t" + name + " | HP:" + hp + " | LVL: " + level +
+                "\nWEAPON: " + weapon.getName() + " | GOLD: " + gold + " | NEXT LEVEL: " + exp + "/" + nextLevel);
     }
 
-    public int getNextLevel() {
-        return nextLevel;
-    }
-
-    public void setNextLevel(int nextLevel) {
-        this.nextLevel = nextLevel;
-    }
 
     public int getAttackDmg() {
         return attackDmg+weapon.getStatBoost();
@@ -110,15 +111,19 @@ public class Player implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public ArrayList<Item> getInventory() {
         return inventory;
     }
 
     public void addToInventory(Item item){
         inventory.add(item);
+    }
+
+    public int getMapLevel() {
+        return mapLevel;
+    }
+
+    public void setMapLevel(int mapLevel) {
+        this.mapLevel = mapLevel;
     }
 }
