@@ -3,21 +3,17 @@ package dev.dustinb.InventoryManagement;
 import dev.dustinb.items.Item;
 import dev.dustinb.player.Player;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
+/*
+    Class to handle all inventory options, including battle bag, and all inventory access/removal
+ */
 public class InventoryManager {
-
 
     private final ArrayList<Item> inventory;
     Player player;
     Scanner input = new Scanner(System.in);
-
-/*    public InventoryManager(){
-        this.inventory = new ArrayList<>();
-    }*/
 
     public InventoryManager(Player player) {
         this.player = player;
@@ -27,7 +23,7 @@ public class InventoryManager {
 
     public void viewInventory(){
         int inventorySpace = 0;
-        int userInput = 0;
+        int userInput;
         //check size
         if(inventory.size() > 1){
             //cycle through inventory
@@ -35,16 +31,10 @@ public class InventoryManager {
             System.out.println("\t\t\t********   INVENTORY   ********");
             System.out.println("   Current Weapon: " + player.getWeapon().getName() + " | Power: " + player.getWeapon().getStatBoost() + " || Health: "+ player.getHp());
             System.out.println("--------------------------------------------------------------");
-            boolean isWeaponEquipped = false;
-            while(iterator.hasNext()){
-                Item newItem = iterator.next();
-                if(newItem.getName().equalsIgnoreCase(player.getWeapon().getName()) && !isWeaponEquipped){ //prevents equipped from showing
-                    isWeaponEquipped = true;
-                    newItem = iterator.next(); //skips equipped
-
-                }
+            List<Item> displayInventory = inventory.stream().toList();
+            for(int i = 1; i < displayInventory.size(); i++){ //i = 1 - skips equipped item
                 inventorySpace++;
-                System.out.println("["+ inventorySpace + "]\t" + newItem.toString());
+                System.out.println("["+ inventorySpace + "]\t" + displayInventory.get(i).toString());
             }
             //Allow user to equip or use an item, close w/0
             System.out.println("{  press number of item you wish to use, 0 to close  }");
@@ -73,34 +63,26 @@ public class InventoryManager {
     public boolean useBag(){
         boolean usedItem = false;
         int inventorySpace = 0;
-        int userInput = 0;
+        int userInput;
 
         //check size
         if(inventory.size() > 1){
             //cycle through inventory
-            ArrayList<Item> bag = new ArrayList<>();
-            bag.add(new Item()); // empty placeholder item to keep arraylist
-            Iterator<Item> iterator = inventory.iterator();
             System.out.println("\t\t\t********   BAG   ********");
             System.out.println("\t\t\t\t   Health: "+ player.getHp());
             System.out.println("--------------------------------------------------------------");
-            while(iterator.hasNext()){
-                Item newItem = iterator.next();
-                if( newItem != null && newItem.isHealing()){ //prevents equipped from showing
-                    bag.add(newItem);
-                    inventorySpace++;
-                    System.out.println("["+ inventorySpace + "]\t" + newItem);
-
-                }
+            List<Item> bag = inventory.stream().filter(Item::isHealing).toList();
+            for(int i =0; i < bag.size(); i++){
+                System.out.println("["+ (i+1) + "] "+ bag.get(i));
             }
             //Allow user to equip or use an item, close w/0
             System.out.println("{  press number of item you wish to use, 0 to close  }");
             userInput = input.nextInt();
             if(userInput != 0){
-                player.setHp(player.getHp() + bag.get(userInput).getStatBoost());
-                System.out.println("Used " + bag.get(userInput).getName() +" HP: " + player.getHp());
+                player.setHp(player.getHp() + bag.get(userInput-1).getStatBoost());
+                System.out.println("Used " + bag.get(userInput-1).getName() +" HP: " + player.getHp());
                 usedItem = true;
-                player.removeItem(bag.get(userInput).getName());
+                player.removeItem(bag.get(userInput-1).getName());
             }
         }
         else{

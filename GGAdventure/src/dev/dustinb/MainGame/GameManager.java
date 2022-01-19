@@ -9,7 +9,7 @@ public class GameManager {
     InventoryManager inventoryManager;
     GameMenu gameMenu = new GameMenu();
     MapMaker mapMaker = new MapMaker();
-    int direction;
+    int direction = 0;
     int playerMapLevel;
     boolean isMapFinished = false;
 
@@ -17,7 +17,9 @@ public class GameManager {
         this.player = player;
         inventoryManager = new InventoryManager(player);
         playerMapLevel = player.getMapLevel();
-        gamePlay();
+        while (direction != -1 ){
+            gamePlay();
+        }
 
     }
     private void gamePlay(){
@@ -30,6 +32,7 @@ public class GameManager {
         }
         System.out.println("You have found a village...");
         direction = gameMenu.viewGameMenu(player, inventoryManager, isMapFinished);
+
     }
 
 }

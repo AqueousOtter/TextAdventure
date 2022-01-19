@@ -1,20 +1,24 @@
 package dev.dustinb;
 
+
+
 import dev.dustinb.items.Item;
 import dev.dustinb.monsters.Monster;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+
 public class DatabaseAccess {
+
 
     private final ArrayList<Item> itemList;
     private final ArrayList<Monster> monsterList;
     private Connection connection;
 
     public DatabaseAccess() {
-        this.itemList = new ArrayList<Item>();
-        this.monsterList = new ArrayList<Monster>();
+        this.itemList = new ArrayList<>();
+        this.monsterList = new ArrayList<>();
         this.connection = null;
     }
 
@@ -22,13 +26,13 @@ public class DatabaseAccess {
 //monsters
     public ArrayList<Monster> getMonsterList(int category) {
         try{
-            connection = DriverManager.getConnection("jdbc:sqlite:TextAdventure/GGAdventure/src/dev/dustinb/UntitledAdventure.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:GGAdventure/src/dev/dustinb/UntitledAdventure.db");
             String sql = "SELECT * FROM monsters WHERE category = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, String.valueOf(category));
 
-            ResultSet rs = preparedStatement.executeQuery();;
+            ResultSet rs = preparedStatement.executeQuery();
 
             //loop through entries
             while (rs.next()){
@@ -46,7 +50,7 @@ public class DatabaseAccess {
     //items
     public ArrayList<Item> getItemList(){
         try{
-            connection = DriverManager.getConnection("jdbc:sqlite:TextAdventure/GGAdventure/src/dev/dustinb/UntitledAdventure.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:GGAdventure/src/dev/dustinb/UntitledAdventure.db");
             String sql = "SELECT * FROM items";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);

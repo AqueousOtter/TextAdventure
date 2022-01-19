@@ -21,7 +21,7 @@ public class GameMenu {
             System.out.println(player.toString());
             System.out.println("########## Choose an option below ##########");
             if(isVillage){
-                System.out.println("[1] Continue Adventure\t [2] View Inventory\t [3] Save Game"); //add shop option
+                System.out.println("[1] Continue Adventure\t [2] View Inventory\t [3] Save Game\t" + " [0] Exit Game" ); //add shop option
             }
             else{
                 System.out.println("[1] Continue Adventure\t [2] View Inventory\t ");
@@ -48,6 +48,11 @@ public class GameMenu {
                         System.out.println("Finished.");
                         isDirection = false;
                     }
+                    break;
+                case 0:
+                    System.out.println("Closing...");
+                    direction = -1;
+                    isDirection = true;
                     break;
                 default:
                     System.out.println("Please enter a choice from above...");
